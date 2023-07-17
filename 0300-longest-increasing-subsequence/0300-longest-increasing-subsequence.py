@@ -2,15 +2,9 @@ class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
         res = []
         for num in nums:
-            if not res:
+            i = bisect_left(res, num)
+            if i == len(res):
                 res.append(num)
-            elif num > res[-1]:
-                res.append(num)
-            elif num < res[-1]:
-                i = 0
-                while num > res[i]:
-                    i += 1
-                
+            else:
                 res[i] = num
         return len(res)
-        
