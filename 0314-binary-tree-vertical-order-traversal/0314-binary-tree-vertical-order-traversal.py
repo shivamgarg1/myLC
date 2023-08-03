@@ -26,9 +26,13 @@ class Solution:
         m = defaultdict(list)
         
         q = [(root, 0)]
+        min_c = max_c = 0
+        
         while q:
             new_q = []
             for node, col in q:
+                max_c = max(max_c, col)
+                min_c = min(min_c, col)
                 m[col].append(node.val)
                 if node.left:
                     new_q.append((node.left, col-1))
@@ -37,7 +41,5 @@ class Solution:
             q = new_q
         
         
-        res = []
-        for k in sorted(m.keys()):
-            res.append(m[k])
+        res = [m[k] for k in range(min_c, max_c+1)]
         return res
