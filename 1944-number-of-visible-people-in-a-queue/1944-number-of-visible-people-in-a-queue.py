@@ -18,21 +18,14 @@ class Solution:
         ans = [0] * l
         i = l - 1
         while i >= 0:
-            if not stack:
-                stack.append(heights[i])
-                ans[i] = 0
-            elif heights[i] <= stack[-1]:
-                stack.append(heights[i])
-                ans[i] = 1
-            else:
-                pop_count = 0
-                while stack and heights[i] > stack[-1]:
-                    pop_count += 1
-                    stack.pop(-1)
-                if stack:
-                    pop_count += 1
-                ans[i] = pop_count
-                stack.append(heights[i])
+            pop_count = 0
+            while stack and heights[i] > stack[-1]:
+                pop_count += 1
+                stack.pop(-1)
+            if stack:
+                pop_count += 1
+            ans[i] = pop_count
+            stack.append(heights[i])
 
             i -= 1
         
