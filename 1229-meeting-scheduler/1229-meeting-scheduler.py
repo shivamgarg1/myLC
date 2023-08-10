@@ -30,48 +30,12 @@ class Solution:
         
         '''
         
-        
-        pq = []
-        
-        for start, end in slots1:
-            pq.append((start, end, 1))
-        for start, end in slots2:
-            pq.append((start, end, 2))
-        heapq.heapify(pq)
-        
-        tstart, tend, tid = heappop(pq)
-        while pq:
-            
-            nstart, nend, nid = heappop(pq)
-            #print( tstart, tend, tid, nstart, nend, nid)
-            # they ids are same, move on
-            if tid == nid:
-                tstart = nstart
-                tend = nend
-                tid = nid
-                
-                continue
-            
-            # they intersect
-            if tstart <= nstart < tend:
-                #find duration of intersection
-                intersection = min(tend, nend) - max(nstart, tstart)
-                
-                # duration qualified
-                if intersection >= duration:
-                    return [nstart, nstart+duration]
-                
-                if nend > tend:
-                    tstart = nstart
-                    tend = nend
-                    tid = nid
-            # they dont intersect
-            else:
-                #print('else:', nstart, nend, nid)
-                tstart = nstart
-                tend = nend
-                tid = nid
-                #print(tstart, tend, tid)
-        
+        timeslots = list(filter(lambda x: x[1] - x[0] >= duration, slots1 + slots2))
+        heapq.heapify(timeslots)
+
+        while len(timeslots) > 1:
+            start1, end1 = heapq.heappop(timeslots)
+            start2, end2 = timeslots[0]
+            if end1 >= start2 + duration:
+                return [start2, start2 + duration]
         return []
-        
