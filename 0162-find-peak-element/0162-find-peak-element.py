@@ -9,10 +9,6 @@ class Solution:
         
         '''
         
-        
-        if len(nums) == 2: return 0 if nums[0] > nums[1] else 1
-        if len(nums) == 1:return 0
-        
         l = 0
         r = len(nums) - 1
         while l < r:
