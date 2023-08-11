@@ -16,23 +16,25 @@ class Solution:
         
         '''
         
+        
         R = len(grid)
         C = len(grid[0])
+        if grid[0][0] == 1 or grid[R-1][C-1]:return -1
+        if R == 1 and C == 1 and grid[0][0] == 0: return 1
         
-        if grid[0][0] == 1 or grid[R-1][C-1] == 1: return -1
-        elif R == 1 and C == 1 and grid[R-1][C-1] == 0: return 1
-        q = [[0,0]]
-        while q :
-            top = q.pop(0)
-            for dr, dc in [[-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1]]:
-                new_dr = top[0] + dr
-                new_dc = top[1] + dc
-                
-                if 0 <= new_dr < R and 0<= new_dc < C and grid[new_dr][new_dc] == 0:
-                    grid[new_dr][new_dc] = grid[top[0]][top[1]] -1
-                    
-                    q.append([new_dr, new_dc])
+        count = 1
+        q = [(0, 0)]
+        grid[0][0] = 1
+        while q:
+            r, c = q.pop(0)
+            for dr, dc in [(-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1)]:
+                new_r = dr + r
+                new_c = dc + c
+                if 0 <= new_r < R and 0 <= new_c < C :
+                    if new_r == R - 1 and new_c == C - 1 and grid[new_r][new_c] == 0:
+                        return grid[r][c] + 1
+                    elif grid[new_r][new_c] == 0:
+                        grid[new_r][new_c] = grid[r][c] + 1
+                        q.append((new_r, new_c))
         
-        if grid[R-1][C-1] == 0: return -1
-        
-        return abs(grid[R-1][C-1]) + 1
+        return -1
