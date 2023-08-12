@@ -26,29 +26,29 @@ class Solution:
         1     : 1
         2     : 3
         3     : 4
-    
+        
+        Space : O(N)
+        Time : O(N)
+        
         '''
         
         if not root: return []
         self.max_depth = 0
-        m = defaultdict(int)
+        self.res = []
         
         def dfs(node, depth):
             if not node:return
             depth += 1
+            if depth > self.max_depth:
+                self.res.append(node.val)
             self.max_depth = max(self.max_depth, depth)
-            if self.max_depth not in m:
-                m[self.max_depth] = node.val
             
             dfs(node.right, depth)
             dfs(node.left, depth)
         
         dfs(root, 0)
         
-        res = []
-        for i in range(1, self.max_depth+1):
-            res.append(m[i])
-        return res
+        return self.res
             
         
         
