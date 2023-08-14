@@ -3,12 +3,13 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        last_non_zero_index = 0
-        curr = 0
-        while curr < len(nums):
-            if nums[curr] != 0:
-                nums[last_non_zero_index], nums[curr] = nums[curr], nums[last_non_zero_index]
-                last_non_zero_index += 1
-            
-            curr += 1
+        
+        
+        zindex = -1
+        for i, num in enumerate(nums):
+            if num == 0 and zindex == -1 :
+                zindex = i
+            elif num != 0 and zindex != -1:
+                nums[i], nums[zindex] = nums[zindex], nums[i]
+                zindex += 1
         
