@@ -15,64 +15,22 @@ class TicTacToe:
     
     def __init__(self, n: int):
         
-        
-        self.arr = [[-1] * n for i in range(n)]
-        self.count = 0
+        self.rows = [0] * n
+        self.cols = [0] * n
         self.n = n
+        self.dia = 0
+        self.antidia = 0
         
     def move(self, row: int, col: int, player: int) -> int:
-        self.arr[row][col] = player
-        self.count += 1
-        if self.count >= 2 * self.n - 1:
-            return self.check_result(player, row, col)
-        return 0
-    
-    def check_result(self, player, row, col):
-        # horizontal
-        count = 0
-        for i in range(self.n):
-            if self.arr[row][i] == player:
-                count += 1
-        if count == self.n:
-            return player
         
-        # vertical
-        count = 0
-        for i in range(self.n):
-            if self.arr[i][col] == player:
-                count += 1
-        if count == self.n:
+        delta = 1 if player == 1 else -1
+        self.rows[row] += delta
+        self.cols[col] += delta
+        if row == col:
+            self.dia += delta
+        if col == self.n - row - 1:
+            self.antidia += delta
+        if abs(self.rows[row]) == self.n or abs(self.cols[col]) == self.n or abs(self.dia) == self.n or abs(self.antidia) == self.n:
             return player
-        
-        # diagonal
-        count = 0
-        r = c = 0
-        while 0 <= r < self.n and 0 <= c < self.n:
-            if self.arr[r][c] == player:
-                count += 1
-            r += 1
-            c += 1
-        if count == self.n:
-            return player
-        r = self.n - 1
-        c = 0
-        count = 0
-        while 0 <= r < self.n and 0 <= c < self.n:
-            if self.arr[r][c] == player:
-                count += 1
-            r -= 1
-            c += 1
-        
-        if count == self.n:
-            return player
-        
         return 0
         
-        
-            
-        
-
-
-# Your TicTacToe object will be instantiated and called as such:
-# obj = TicTacToe(n)
-# param_1 = obj.move(row,col,player)
