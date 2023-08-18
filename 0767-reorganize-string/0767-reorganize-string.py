@@ -23,7 +23,6 @@ class Solution:
             res += char
             if count+1 != 0:
                 heappush(pq,(count+1, char))
-        print(res)
         if len(res) != len(s): return ''
         return res
                 
