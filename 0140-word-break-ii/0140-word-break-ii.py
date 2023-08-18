@@ -1,5 +1,5 @@
 class Solution:
-    def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
+    def wordBreak(self, s: str, words: List[str]) -> List[str]:
         '''
         algo:
         1) use dfs approach
@@ -10,18 +10,20 @@ class Solution:
         '''
         
         l = len(s)
-        ans = []
-        def dfs(running_str, i):
-            if i == l:
-                ans.append(running_str[1:])
-                return
-            
-            for j in range(len(wordDict)):
-                word_l = len(wordDict[j])
-                if wordDict[j] == s[i:i+word_l]:
-                    dfs(running_str + ' ' + wordDict[j], i+word_l)
-            
-            return
+        memo = {}
+        @lru_cache(maxsize=None)
+        def dfs(i):
+            if i in memo:return memo[i]
+            res = []
+            for word in words:
+                if word != s[i : i + len(word)]:
+                    continue
+                elif len(word) == l - i:
+                    res.append(word)
+                else:
+                    for sentence in dfs(i+len(word)):
+                        res.append(word + ' ' + sentence)
+            memo[i] = res
+            return res
         
-        dfs('', 0)
-        return ans
+        return dfs(0)
