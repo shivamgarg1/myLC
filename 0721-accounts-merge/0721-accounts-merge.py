@@ -23,10 +23,11 @@ class Solution:
                 dfs(nei, stack)
         
         res = []  
-        for i in range(len(accounts)):
+        #for i in range(len(accounts)):
+        for acc in accounts:
             local_res = []
-            for account in accounts[i][1:]:
+            for account in acc[1:]:
                 dfs(account, local_res)
             if local_res:
-                res.append([accounts[i][0]] + sorted(local_res))
+                res.append([acc[0]] + sorted(local_res))
         return res
