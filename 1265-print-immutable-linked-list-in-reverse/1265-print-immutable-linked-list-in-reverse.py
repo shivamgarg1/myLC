@@ -8,12 +8,13 @@
 
 class Solution:
     def printLinkedListInReverse(self, head: 'ImmutableListNode') -> None:
-        node = head
-        ls = []
-        while node:
-            ls.append(node)
-            node = node.getNext()
+        # constant space 
+        # time O(N**2)
         
-        for i in range(len(ls) - 1, -1, -1):
-            ls[i].printValue()
-        
+        end = None
+        while end != head:
+            node = head
+            while node.getNext() != end:
+                node = node.getNext()
+            node.printValue()
+            end = node
