@@ -8,6 +8,4 @@ class Solution:
             if running_sum < 0:
                 running_sum = 0
         
-        max_sum = max(max_sum, running_sum)
-        if max_sum == 0:return max(nums)
         return max_sum
