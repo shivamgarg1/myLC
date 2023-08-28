@@ -4,9 +4,7 @@ class Solution:
         
         @lru_cache(maxsize=None)
         def rec(i) :
-            
-            if i == 0: return nums[0]
-            elif i == 1:return max(nums[0], nums[1])
+            if i < 0 :return 0
             
             return max(nums[i] + rec(i-2), rec(i-1))
     
