@@ -22,7 +22,11 @@ class Solution:
                 self.res = node.val
             elif abs(node.val - target) == abs(self.res - target) and node.val < self.res:
                 self.res = node.val
+            
+            
+            #if node.val < target:return
             dfs(node.left)
+            if node.val > target:return
             dfs(node.right)
         
         self.res = sys.maxsize
