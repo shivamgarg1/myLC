@@ -17,14 +17,15 @@ class Solution:
         
         r = [1 - n]
         '''
-        self.memo = {}
+        #self.memo = {}
+        @lru_cache(maxsize=None)
         def rec(l , r):
             
             res = []
             if l > r: 
                 res.append(None)
                 return res
-            if (l, r) in self.memo:return self.memo[(l, r)]
+            #if (l, r) in self.memo:return self.memo[(l, r)]
             for i in range(l, r+1):
                 lnodes = rec(l, i-1)
                 rnodes = rec(i+1, r)
@@ -33,7 +34,7 @@ class Solution:
                     for rnode in rnodes:
                         node = TreeNode(i, lnode, rnode)
                         res.append(node)
-            self.memo[(l, r)] = res
+            #self.memo[(l, r)] = res
             return res
         
         return rec(1, n)
