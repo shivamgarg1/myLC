@@ -1,8 +1,11 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
         
-        @lru_cache(maxsize=None)
+        dp = {}
+        
+        #@lru_cache(maxsize=None)
         def rec(amt):
+            if amt in dp:return dp[amt]
             if amt == 0:return 0
             min_count = sys.maxsize
             for coin in coins:
@@ -10,6 +13,7 @@ class Solution:
                     count = rec(amt - coin)
                     min_count = min(min_count, count)
             
+            dp[amt] = min_count + 1
             return min_count + 1
         
         count = rec(amount)
