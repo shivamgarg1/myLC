@@ -1,20 +1,19 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
         
-        l = len(coins)
         @lru_cache(maxsize=None)
-        def rec(ra):
-            if ra > amount:return -1
-            if ra == amount:return 0
-            
-            tmp = sys.maxsize
+        def rec(amt):
+            if amt == 0:return 0
+            min_count = sys.maxsize
             for coin in coins:
-                res = rec(ra+coin)
-                if res != -1:
-                    tmp = min(tmp, res+1)
+                if amt >= coin:
+                    count = rec(amt - coin)
+                    min_count = min(min_count, count)
             
-            return tmp if tmp != sys.maxsize else -1
+            return min_count + 1
         
-        return rec(0)
+        count = rec(amount)
+        if count >= sys.maxsize:return -1
+        return count
             
         
