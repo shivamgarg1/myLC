@@ -3,14 +3,15 @@ class Solution:
         l = len(arr)
         visited = [False] * l
         
-        def dfs(i):
-            if  i >= l:return False
-            elif i < 0:return False
-            elif visited[i]:return False
-            if arr[i] == 0:return True
-            visited[i] = True
-            if dfs(i + arr[i]):return True
-            elif dfs(i - arr[i]):return True
-            return False
+        q = [start]
+        while q:
+            top = q.pop(0)
+            if top >= l:continue
+            elif top < 0: continue
+            if visited[top]:continue
+            visited[top] = True
+            if arr[top] == 0:return True
+            q.append(top + arr[top])
+            q.append(top - arr[top])
         
-        return dfs(start)
+        return False
