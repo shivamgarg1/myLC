@@ -5,10 +5,10 @@ class Solution:
         
         @lru_cache(maxsize=None)
         def rec(i):
-            if i == l-1:return True
+            if i >= l-1:return True
             if nums[i] == 0: return False
             
-            for val in range(1, nums[i] + 1):
+            for val in range(nums[i], 0, -1):
                 if rec(i + val):return True
             return False
         
