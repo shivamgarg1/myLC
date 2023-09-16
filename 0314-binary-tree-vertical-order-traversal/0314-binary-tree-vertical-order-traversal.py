@@ -24,22 +24,17 @@ class Solution:
         '''
         if not root:return[]
         m = defaultdict(list)
-        
+        min_level = sys.maxsize
+        max_level = -sys.maxsize
         q = [(root, 0)]
-        min_c = max_c = 0
-        
         while q:
-            new_q = []
-            for node, col in q:
-                max_c = max(max_c, col)
-                min_c = min(min_c, col)
-                m[col].append(node.val)
-                if node.left:
-                    new_q.append((node.left, col-1))
-                if node.right:
-                    new_q.append((node.right, col+1))
-            q = new_q
+            node, level = q.pop(0)
+            min_level = min(min_level, level)
+            max_level = max(max_level, level)
+            m[level].append(node.val)
+            if node.left:
+                q.append((node.left, level - 1))
+            if node.right:
+                q.append((node.right, level + 1))
         
-        
-        res = [m[k] for k in range(min_c, max_c+1)]
-        return res
+        return [m[i] for i in range(min_level, max_level + 1)]
