@@ -8,14 +8,14 @@ class Solution:
         2) use backtracking
         
         '''
+        
+        l = len(nums)
         @lru_cache(maxsize=None)
-        def rec(rem, i):
-            if i == 0:
-                if rem == 0:return 1
+        def rec(i, rs):
+            if i == l:
+                if rs == target:return 1
                 else:return 0
             
-            return rec(rem - nums[i-1], i - 1) + rec(rem + nums[i-1], i - 1)
+            return rec(i+1, rs + nums[i]) + rec(i+1, rs - nums[i])
         
-        return rec(target, len(nums) )
-                
-            
+        return rec(0, 0)
