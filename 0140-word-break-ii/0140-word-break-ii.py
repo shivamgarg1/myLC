@@ -9,21 +9,21 @@ class Solution:
         
         '''
         
+        res = []
         l = len(s)
-        memo = {}
-        @lru_cache(maxsize=None)
-        def dfs(i):
-            if i in memo:return memo[i]
-            res = []
-            for word in words:
-                if word != s[i : i + len(word)]:
-                    continue
-                elif len(word) == l - i:
-                    res.append(word)
-                else:
-                    for sentence in dfs(i+len(word)):
-                        res.append(word + ' ' + sentence)
-            memo[i] = res
-            return res
         
-        return dfs(0)
+        def rec(i, rs):
+            if i == l:
+                res.append(rs[1:])
+                return
+            
+            for word in words:
+                word_len = len(word)
+                if word_len > l - i : continue
+                elif word == s[i : i + word_len]:
+                    rec(i+word_len, rs + ' ' + word)
+            return
+        
+        rec(0, '')
+        return res
+        
