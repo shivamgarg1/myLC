@@ -1,11 +1,27 @@
 class Solution:
     def maximumSum(self, arr: List[int]) -> int:
-        max1 = arr[0]
-        max2 = arr[0]
-        res = arr[0]
-        for num in arr[1:]:
-            max1 = max( max1 + num, max2, num)
-            max2 = max(max2 + num, num)
-            res = max(max1, res)
+        '''
+        1, -2, 0, 3
         
+        kleft -> [0, ]
+        '''
+        l = len(arr)
+        kleft = [0] * l
+        kleft[0] = arr[0]
+        rm = arr[0]
+        for i in range(1, l):
+            rm = max(arr[i], rm + arr[i])
+            kleft[i] = rm
+        
+        rm = arr[-1]
+        max_sum = arr[-1]
+        kright = [0] * l
+        kright[-1] = arr[-1]
+        for i in range(l-2, -1, -1):
+            rm = max(arr[i], arr[i] + rm)
+            max_sum = max( max_sum, rm)
+            kright[i] = rm
+        res = max_sum
+        for i in range(1, l-1):
+            res = max(res, kleft[i-1] + kright[i+1])
         return res
