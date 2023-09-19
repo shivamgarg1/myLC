@@ -9,21 +9,33 @@ class Node:
 
 class Solution:
     def treeToDoublyList(self, root: 'Optional[Node]') -> 'Optional[Node]':
-        self.ls = []
-        if not root:return
+        '''
         
+                4
+               / \
+              2   5
+             / \
+            1   3 
+        
+        
+        5 <-- 1 <=> 2 <=> 3 <=> 4 <=> 5 --> 1
+        '''
+        self.min_node = None
+        self.max_node = None
+        if not root: return
         def dfs(node):
             if not node:return
             dfs(node.left)
-            self.ls.append(node)
+            if self.max_node:
+                self.max_node.right = node
+                node.left = self.max_node
+            else:
+                self.min_node = node
+            self.max_node = node
             dfs(node.right)
-        
+            
         dfs(root)
-        
-        for i in range(len(self.ls) - 1):
-            self.ls[i].right = self.ls[i+1]
-            self.ls[i+1].left = self.ls[i]
-        self.ls[0].left = self.ls[-1]
-        self.ls[-1].right = self.ls[0]
-        
-        return self.ls[0]
+        self.min_node.left = self.max_node
+        self.max_node.right = self.min_node
+        return self.min_node
+            
