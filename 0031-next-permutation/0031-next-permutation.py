@@ -28,33 +28,25 @@ class Solution:
         """
         
         l = len(nums)
-        i = l -1
+        i = l - 1
         while i > 0:
-            if nums[i-1] < nums[i]:
-                # find the first element larger than i-1 element and swap
-                diff = sys.maxsize
-                diff_index = l
-                for j in range(i, l):
-                    if nums[j] > nums[i-1] and nums[j] - nums[i-1] < diff:
-                        diff = nums[j] - nums[i-1]
-                        diff_index = j
-                
-                
-                nums[i-1], nums[diff_index] = nums[diff_index], nums[i-1]
-                
-                tmp = sorted(nums[i:])
-                
-                
-                k = 0
-                while k < len(tmp):
-                    nums[i+k] = tmp[k]
-                    k += 1
-                
-                return 
+            if nums[i] > nums[i-1]:break
             i -= 1
-            
-        nums.sort()
-            
+        
+        if i == 0:return nums.sort()
+        
+        tmp = sorted(nums[i:])
+        idx = i - 1
+        
+        for num in tmp:
+            nums[i] = num
+            i += 1
+        
+        j = idx + 1
+        while j < l:
+            if nums[idx] < nums[j]:break
+            j += 1
+        nums[idx], nums[j] = nums[j], nums[idx]
         
                 
             
