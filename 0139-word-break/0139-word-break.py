@@ -9,19 +9,22 @@ class Solution:
         1) use re
         
         '''
-        words = set(wordDict)
-        q = [0]
-        seen = set()
         
-        while q:
-            start = q.pop(0)
-            if start == len(s): return True
-            for end in range(start + 1, len(s) + 1):
-                if end in seen:continue
-                if s[start:end] in words:
-                    seen.add(end)
-                    q.append(end)
+        l = len(s)
         
-        return False
+        @lru_cache(maxsize=None)
+        def dfs(i, rs):
+            if i == l:
+                if rs == s:return True
+                return False
+            
+            for word in wordDict:
+                lword = len(word)
+                if lword > l - i: continue
+                elif word != s[i : i+lword]:continue
+                elif dfs(i+lword, rs + word):return True
+            
+            return False
         
+        return dfs(0, '')
         
