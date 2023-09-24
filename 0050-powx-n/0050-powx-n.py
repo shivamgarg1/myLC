@@ -1,7 +1,7 @@
 class Solution:
     def myPow(self, x: float, n: int) -> float:
         
-        @lru_cache(maxsize=None)
+        #@lru_cache(maxsize=None)
         def rec(i):
             if i == 0:return 1
             elif i == 1:return x
