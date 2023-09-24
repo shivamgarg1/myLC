@@ -5,11 +5,11 @@ class Solution:
         def rec(i):
             if i == 0:return 1
             elif i == 1:return x
-            
+            half = rec(i // 2)
             if i % 2 == 0:
-                return rec(i // 2) * rec( i // 2)
+                return half * half
             elif i % 2 == 1:
-                return x * rec(i-1)
+                return x * half * half
         
         
         res = rec(abs(n))
