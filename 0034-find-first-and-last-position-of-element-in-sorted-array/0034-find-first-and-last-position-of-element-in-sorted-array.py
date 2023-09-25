@@ -25,13 +25,11 @@ class Solution:
         r = len(nums)
         while l < r:
             mid = l + ( r - l ) // 2
-            if nums[mid] <= target:
-                l= mid + 1
-            else:
+            if nums[mid] > target:
                 r = mid
+            else:
+                l = mid + 1
         
-        if l == len(nums) or target != nums[l]:
-            l -= 1
-        return [low, l]
+        return [low, l-1]
         
         
