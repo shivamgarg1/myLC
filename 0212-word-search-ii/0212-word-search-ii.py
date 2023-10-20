@@ -28,7 +28,8 @@ class Solution:
                 if 0 <= new_r < R and 0 <= new_c < C:
                     dfs(new_r, new_c, node[char])
             board[r][c] = char
-    
+            if not node[char]:
+                node.pop(char)
         for r in range(R):
             for c in range(C):
                 dfs(r, c, self.trie)
