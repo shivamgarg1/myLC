@@ -1,6 +1,6 @@
 class Solution:
     def minStickers(self, stickers: List[str], target: str) -> int:
-        #stickers.sort(key = lambda x: len(x))
+        stickers.sort(key = lambda x: len(x))
         sticker_counter = [Counter(sticker) for sticker in stickers]
         memo = {}
         def dfs(target):
