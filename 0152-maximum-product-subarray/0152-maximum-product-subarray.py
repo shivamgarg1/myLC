@@ -1,5 +1,5 @@
 class Solution:
-    def maxProduct(self, A: List[int]) -> int:
+    def maxProduct(self, nums: List[int]) -> int:
         '''
         
         [-3, 0, 1, -2]
@@ -7,9 +7,14 @@ class Solution:
         -2, 
         
         '''
-        
-        B = A[::-1]
-        for i in range(1, len(A)):
-            A[i] *= A[i - 1] or 1
-            B[i] *= B[i - 1] or 1
-        return max(A + B)
+        max_pr = nums[0]
+        min_pr = nums[0]
+        res = nums[0]
+        for num in nums[1:]:
+            vals = num, num * max_pr, num * min_pr
+            max_pr = max(vals)
+            min_pr = min(vals)
+            
+            res = max(res, max_pr)
+    
+        return res
